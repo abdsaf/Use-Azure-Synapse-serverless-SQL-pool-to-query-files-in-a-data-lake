@@ -1,0 +1,17 @@
+{
+	"name": "LoadParquet",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\n SELECT YEAR(OrderDate) AS OrderYear,\n        COUNT(*) AS OrderedItems\nFROM\n    OPENROWSET(\n        BULK 'https://datalaketnmei3j.dfs.core.windows.net/files/sales/parquet/year=*/',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n     WHERE [result].filepath(1) IN ('2019', '2020')\n GROUP BY YEAR(OrderDate)\n ORDER BY OrderYear\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
